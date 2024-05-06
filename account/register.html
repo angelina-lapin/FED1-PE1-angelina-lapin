@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tech for Tomorrow - Registration & Login</title>
+  </head>
+  <body>
+    <h1>Tech for Tomorrow</h1>
+    <h2>Register</h2>
+    <form id="register-form">
+      <label for="register-username">Username:</label>
+      <input type="text" id="register-username" required />
+      <label for="register-email">Email</label>
+      <input type="email" id="register-email" required />
+      <label for="register-password">Password:</label>
+      <input type="password" id="register-password" required />
+      <button type="submit">Register</button>
+    </form>
+
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="login-username">Username:</label>
+      <input type="text" id="login-username" required />
+      <label for="register-email">Email</label>
+      <input type="email" id="register-email" required />
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" required />
+      <button type="submit">Login</button>
+    </form>
+    <h2>Blog Posts</h2>
+    <div id="blog-posts-container"></div>
+
+    <script src="/js/register.mjs" type="module"></script>
+  </body>
+</html>
