@@ -1,14 +1,14 @@
 const API_BASE_URL = "https://v2.api.noroff.dev";
-const ALLOWED_USERNAME = "angelina_lapin"; // Укажите разрешённое имя пользователя
+const ALLOWED_EMAIL = "anglap01435@stud.noroff.no"; // Укажите разрешённое имя пользователя
 
-async function registerUser(username, password) {
+async function registerUser(username, email, password) {
   const response = await fetch(`${API_BASE_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: username,
+      name: username,
       email: email,
       password: password,
     }),
@@ -26,14 +26,14 @@ async function registerUser(username, password) {
   }
 }
 
-async function loginUser(username, password) {
+async function loginUser(email, password) {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: username,
+      email: email,
       password: password,
     }),
   });
@@ -43,12 +43,12 @@ async function loginUser(username, password) {
     alert("Login successful!");
     localStorage.setItem("authToken", data.token); // Сохраните токен в локальное хранилище
 
-    if (username === ADMIN_USERNAME) {
+    if (email === ALLOWED_EMAIL) {
       // Перенаправить на страницу редактирования, если администратор
-      window.location.href = "edit.html";
+      window.location.href = "post/edit.html";
     } else {
       // Перенаправить на главную страницу для обычного пользователя
-      window.location.href = "index.html";
+      window.location.href = "post/index.html";
     }
   } else {
     console.error("Login failed:", data);
@@ -66,7 +66,7 @@ async function fetchBlogPosts() {
     return;
   }
 
-  const response = await fetch(`${API_BASE_URL}/blog/posts/your_username`, {
+  const response = await fetch(`${API_BASE_URL}/blog/posts/angelinalapin`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${authToken}`,
@@ -112,8 +112,8 @@ document
   .getElementById("login-form")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Предотвратить перезагрузку страницы
-    const username = document.getElementById("login-username").value;
-    const email = document.getElementById("register-email").value;
+
+    const email = document.getElementById("login-email").value;
     const password = document.getElementById("login-password").value;
-    loginUser(username, email, password);
+    loginUser(email, password);
   });

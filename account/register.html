@@ -2,15 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Tech for Tomorrow - Registration & Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration & Login</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script type="module" src="/js/register.mjs"></script>
   </head>
   <body>
+    <header>
+      <div class="navbar">
+        <h1>Tech for Tomorrow</h1>
+        <nav>
+          <a href="/account/register.html">Log In</a>
+          <a href="/account/register.html">Sign In</a>
+        </nav>
+      </div>
+    </header>
     <h1>Tech for Tomorrow</h1>
     <h2>Register</h2>
     <form id="register-form">
       <label for="register-username">Username:</label>
       <input type="text" id="register-username" required />
-      <label for="register-email">Email</label>
+      <label for="register-email">Email:</label>
       <input type="email" id="register-email" required />
       <label for="register-password">Password:</label>
       <input type="password" id="register-password" required />
@@ -19,17 +45,11 @@
 
     <h2>Login</h2>
     <form id="login-form">
-      <label for="login-username">Username:</label>
-      <input type="text" id="login-username" required />
-      <label for="register-email">Email</label>
-      <input type="email" id="register-email" required />
+      <label for="login-email">Email:</label>
+      <input type="email" id="login-email" required />
       <label for="login-password">Password:</label>
       <input type="password" id="login-password" required />
       <button type="submit">Login</button>
     </form>
-    <h2>Blog Posts</h2>
-    <div id="blog-posts-container"></div>
-
-    <script src="/js/register.mjs" type="module"></script>
   </body>
 </html>
