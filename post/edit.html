@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -19,8 +19,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-
-    <script type="module" src="/js/script.mjs"></script>
+    <script type="module" src="/js/application.mjs"></script>
   </head>
 
   <body>
@@ -56,49 +55,12 @@
             <button>Delete</button>
           </div>
         </div>
-        <div class="slide" style="display: none">
-          <img src="/img/lab.jpg" alt="" />
-          <div class="slide-text">
-            <h2>Название статьи 2</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              iaculis odio at ligula dictum, at cursus ex aliquet. Ut semper
-              consequat nisl id consectetur. In hac habitasse platea dictumst.
-              Donec pulvinar non odio id condimentum. Donec ultrices sapien in
-              lacinia ultrices. In sem quam, varius in posuere nec, vehicula sit
-              amet mauris. Interdum et malesuada fames ac ante ipsum primis in
-              faucibus. Ut mollis tristique metus, molestie sodales elit
-              pharetra ac.
-            </p>
-            <p>Авторы</p>
-            <p>Hashtags</p>
-            <a href="/blogpost.html">Read the post</a>
-            <button>Delete</button>
-          </div>
-        </div>
-        <div class="slide" style="display: none">
-          <img src="/img/ny_city.jpg" alt="" />
-          <div class="slide-text">
-            <h2>Название статьи 3</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              iaculis odio at ligula dictum, at cursus ex aliquet. Ut semper
-              consequat nisl id consectetur. In hac habitasse platea dictumst.
-              Donec pulvinar non odio id condimentum. Donec ultrices sapien in
-              lacinia ultrices. In sem quam, varius in posuere nec, vehicula sit
-              amet mauris. Interdum et malesuada fames ac ante ipsum primis in
-              faucibus. Ut mollis tristique metus, molestie sodales elit
-              pharetra ac.
-            </p>
-            <p>Авторы</p>
-            <p>Hashtags</p>
-            <a href="/blogpost.html">Read the post</a>
-            <button>Delete</button>
-          </div>
-        </div>
         <button class="next"><i class="fas fa-arrow-right"></i></button>
       </div>
 
+      <div class="article-grid" id="blog-posts-container">
+        <!-- Карточки статей будут динамически генерироваться здесь -->
+      </div>
       <div class="hashtag-filter">
         <label for="hashtag">Фильтр по хэштегу:</label>
         <select id="hashtag">
@@ -108,78 +70,22 @@
           <option value="#sustainability">Stability</option>
         </select>
       </div>
-      <div class="article-grid">
-        <div class="card">
-          <img src="/img/city.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <p>Hashtags</p>
-            <a href="#blogpost.html">Read the post</a>
-            <button>Delete</button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/cube.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <p>Hashtags</p>
-            <a href="#blogpost.html">Read the post</a>
-            <button>Delete</button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/downtown.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-            <button>Delete</button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/kid.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/lab.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/people.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-      </div>
-      <h2>New post</h2>
-      <form id="edit-form">
-        <label for="title">Title</label>
-        <input type="text" id="title-text" required />
+
+      <h2>New Post</h2>
+      <form id="post-form">
+        <label for="post-title">Title</label>
+        <input type="text" id="post-title" required />
         <label for="authors">Authors</label>
         <input type="text" id="authors" required />
-        <label for="tag">Tags</label>
-        <input type="text" id="tag" required />
+        <label for="tags">Tags</label>
+        <input type="text" id="tags" required />
         <label for="main-text">Main text</label>
-        <input type="text" id="main-text" required />
-        <label for="images">Images</label>
-        <input type="file" id="images" />
-        <button type="submit">Place</button>
+        <textarea id="main-text" required></textarea>
+        <button type="submit">Create Post</button>
       </form>
     </main>
     <footer>
-      <a class="terms_policy" href="#">Tearms and Conditions</a>
+      <a class="terms_policy" href="#">Terms and Conditions</a>
       <a class="terms_policy" href="#">Privacy Policy</a>
     </footer>
   </body>

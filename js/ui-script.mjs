@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Инициализация слайдера
   const slides = document.querySelectorAll(".slide");
   let currentSlide = 0;
   const nextButton = document.querySelector(".next");
