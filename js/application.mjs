@@ -1,12 +1,11 @@
-import { registerUser, loginUser, redirectToPage } from "./user-management.mjs";
-import { createBlogPost, fetchBlogPosts } from "./blog-management.mjs";
+import { registerUser, loginUser } from "./user-management.mjs";
+import { fetchBlogPosts } from "./blog-management.mjs";
 
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
   const loginForm = document.getElementById("login-form");
-  const postForm = document.getElementById("post-form");
 
-  // Установка обработчика событий для формы регистрации
+  // Регистрация пользователя
   registerForm?.addEventListener("submit", function (event) {
     event.preventDefault();
     const username = document.getElementById("register-username").value;
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     registerUser(username, email, password);
   });
 
-  // Установка обработчика событий для формы входа
+  // Вход пользователя
   loginForm?.addEventListener("submit", function (event) {
     event.preventDefault();
     const email = document.getElementById("login-email").value;
@@ -23,16 +22,35 @@ document.addEventListener("DOMContentLoaded", function () {
     loginUser(email, password);
   });
 
-  // Установка обработчика событий для формы создания блог-поста
-  postForm?.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const title = document.getElementById("post-title").value;
-    const authors = document.getElementById("authors").value;
-    const tags = document.getElementById("tags").value;
-    const content = document.getElementById("main-text").value;
-    createBlogPost(title, content, authors, tags);
+  // Загрузка блог-постов
+  fetchBlogPosts().then(() => {
+    // Обработчик кликов на ссылки после загрузки постов
+    document.querySelectorAll(".card a").forEach((link) => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        const authToken = localStorage.getItem("authToken");
+        const postId = this.getAttribute("data-post-id");
+        if (authToken) {
+          const isAdmin = checkAdminRights(authToken);
+          if (isAdmin) {
+            window.location.href = `/post/edit.html?id=${postId}`;
+          } else {
+            window.location.href = `/post/index.html?id=${postId}`;
+          }
+        } else {
+          alert("You need to log in to edit posts.");
+          window.location.href = "/account/login.html";
+        }
+      });
+    });
   });
-
-  // Загрузка блог-постов при загрузке страницы
-  fetchBlogPosts();
 });
+
+function checkAdminRights(token) {
+  // Предполагаем, что если токен есть, то это админ (для простоты)
+  // Реальная проверка может быть выполнена на сервере или с использованием данных из токена (JWT)
+  return true;
+}
+
+// Загрузка блог-постов при загрузке страницы
+fetchBlogPosts();

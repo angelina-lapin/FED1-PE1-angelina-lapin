@@ -1,5 +1,5 @@
 export const API_BASE_URL = "https://v2.api.noroff.dev";
-export const USERNAME = "angelinalapin";
+export const USERNAME = "angelinalapina";
 
 export async function apiRequest(url, method, headers = {}, body = null) {
   const options = {
@@ -34,10 +34,20 @@ export function showAlert(message, isSuccess = true) {
 }
 
 export function handleAuth(data) {
-  if (data.accessToken) {
-    localStorage.setItem("authToken", data.accessToken);
+  console.log("handleAuth received data:", data);
+  const token = data.data?.accessToken;
+  if (token) {
+    localStorage.setItem("authToken", token);
     console.log("Authentication successful, token stored.");
   } else {
     console.error("Token not provided in the response.");
+  }
+}
+
+function checkAuthError(error) {
+  if (error.statusCode === 401) {
+    showAlert("Session expired. Please log in again.", false);
+    // Редирект на страницу входа
+    window.location.href = "/account/login.html";
   }
 }

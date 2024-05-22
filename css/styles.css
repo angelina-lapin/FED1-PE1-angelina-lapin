@@ -39,33 +39,59 @@ body {
 }
 
 .carousel {
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  margin-top: 20px;
+  position: relative;
   width: 100%;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-  display: none; /* Скрыть все слайды */
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  display: none;
+  width: 100%;
 }
 
 .slide img {
-  width: 50%;
-  height: auto;
+  width: 100%;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
 }
 
 .slide-text {
-  padding: 20px;
-  width: 40%;
-  float: right;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 h2 {
-  color: #000;
+  color: yellow;
   font-family: Raleway;
   font-size: 20px;
   font-style: normal;
@@ -142,6 +168,14 @@ button:hover {
   background: #fff;
 
   box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.25);
+}
+
+.card-text p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Количество строк, которое нужно показать */
+  -webkit-box-orient: vertical;
 }
 
 footer {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tech for Tomorrow</title>
+    <title>Blog Post</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,148 +19,26 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-
-    <script type="module" src="/js/application.mjs"></script>
   </head>
-
   <body>
     <header>
       <div class="navbar">
-        <h1>Tech for Tomorrow</h1>
+        <a href="/index.html">Tech for tomorrow</a>
         <nav>
-          <a href="/account/register.html">Log In</a>
+          <a href="/account/login.html">Log In</a>
           <a href="/account/register.html">Sign In</a>
         </nav>
       </div>
     </header>
     <main>
-      <div class="carousel">
-        <button class="prev"><i class="fas fa-arrow-left"></i></button>
-        <div class="slide">
-          <img src="/img/city.jpg" alt="" />
-          <div class="slide-text">
-            <h2>Название статьи 1</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              iaculis odio at ligula dictum, at cursus ex aliquet. Ut semper
-              consequat nisl id consectetur. In hac habitasse platea dictumst.
-              Donec pulvinar non odio id condimentum. Donec ultrices sapien in
-              lacinia ultrices. In sem quam, varius in posuere nec, vehicula sit
-              amet mauris. Interdum et malesuada fames ac ante ipsum primis in
-              faucibus. Ut mollis tristique metus, molestie sodales elit
-              pharetra ac.
-            </p>
-            <p>Авторы</p>
-            <p>Hashtags</p>
-            <a href="/blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="slide" style="display: none">
-          <img src="/img/lab.jpg" alt="" />
-          <div class="slide-text">
-            <h2>Название статьи 2</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              iaculis odio at ligula dictum, at cursus ex aliquet. Ut semper
-              consequat nisl id consectetur. In hac habitasse platea dictumst.
-              Donec pulvinar non odio id condimentum. Donec ultrices sapien in
-              lacinia ultrices. In sem quam, varius in posuere nec, vehicula sit
-              amet mauris. Interdum et malesuada fames ac ante ipsum primis in
-              faucibus. Ut mollis tristique metus, molestie sodales elit
-              pharetra ac.
-            </p>
-            <p>Авторы</p>
-            <p>Hashtags</p>
-            <a href="/blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="slide" style="display: none">
-          <img src="/img/ny_city.jpg" alt="" />
-          <div class="slide-text">
-            <h2>Название статьи 3</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              iaculis odio at ligula dictum, at cursus ex aliquet. Ut semper
-              consequat nisl id consectetur. In hac habitasse platea dictumst.
-              Donec pulvinar non odio id condimentum. Donec ultrices sapien in
-              lacinia ultrices. In sem quam, varius in posuere nec, vehicula sit
-              amet mauris. Interdum et malesuada fames ac ante ipsum primis in
-              faucibus. Ut mollis tristique metus, molestie sodales elit
-              pharetra ac.
-            </p>
-            <p>Авторы</p>
-            <p>Hashtags</p>
-            <a href="/blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <button class="next"><i class="fas fa-arrow-right"></i></button>
-      </div>
-
-      <div class="hashtag-filter">
-        <label for="hashtag">Фильтр по хэштегу:</label>
-        <select id="hashtag">
-          <option value="all">All</option>
-          <option value="#technology">Technology</option>
-          <option value="#innovation">Innovation</option>
-          <option value="#sustainability">Stability</option>
-        </select>
-      </div>
-      <div class="article-grid">
-        <div class="card">
-          <img src="/img/city.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <p>Hashtags</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/cube.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <p>Hashtags</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/downtown.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/kid.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/lab.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/img/people.jpg" alt="Image Description" />
-          <div class="card-text">
-            <h3>Название статьи</h3>
-            <p>Краткий текст статьи.</p>
-            <a href="#blogpost.html">Read the post</a>
-          </div>
-        </div>
+      <div id="post-container">
+        <!-- Содержание поста будет загружено сюда -->
       </div>
     </main>
     <footer>
-      <a class="terms_policy" href="#">Tearms and Conditions</a>
+      <a class="terms_policy" href="#">Terms and Conditions</a>
       <a class="terms_policy" href="#">Privacy Policy</a>
     </footer>
+    <script type="module" src="/js/post.mjs"></script>
   </body>
 </html>

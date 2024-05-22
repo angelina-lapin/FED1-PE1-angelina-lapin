@@ -1,10 +1,4 @@
-import {
-  apiRequest,
-  showAlert,
-  API_BASE_URL,
-  USERNAME,
-  handleAuth,
-} from "./common.mjs";
+import { apiRequest, showAlert, API_BASE_URL, handleAuth } from "./common.mjs";
 
 async function registerUser(username, email, password) {
   const url = `${API_BASE_URL}/auth/register`;
@@ -15,47 +9,28 @@ async function registerUser(username, email, password) {
       {},
       { username, email, password }
     );
-    showAlert("User registered successfully!", true);
+    console.log("registerUser received data:", data);
     handleAuth(data);
+    alert("Registration successful!");
+    window.location.href = "/index.html"; // Перенаправление на главную страницу после регистрации
   } catch (error) {
-    showAlert(error.message, false);
+    console.error("Registration failed:", error);
+    alert(`Registration failed: ${error.message}`);
   }
 }
 
 async function loginUser(email, password) {
   const url = `${API_BASE_URL}/auth/login`;
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (response.ok) {
-      if (data.accessToken) {
-        localStorage.setItem("authToken", data.accessToken);
-        console.log("Authentication successful, token stored.");
-      } else {
-        console.error("Token not provided in response.");
-        // Обработка ситуации, когда токен не пришел, но ответ сервера успешен
-      }
-    } else {
-      throw new Error(data.message || "Authentication failed");
-    }
+    const data = await apiRequest(url, "POST", {}, { email, password });
+    console.log("loginUser received data:", data);
+    handleAuth(data);
+    alert("Login successful!");
+    window.location.href = "/index.html"; // Перенаправление на главную страницу после входа
   } catch (error) {
-    console.error("Login request failed:", error);
+    console.error("Login failed:", error);
+    alert(`Login failed: ${error.message}`);
   }
 }
 
-function redirectToPage(email) {
-  const ALLOWED_EMAIL = "anglapin01435@stud.noroff.no";
-  if (email === ALLOWED_EMAIL) {
-    window.location.href = "./../post/edit.html";
-  } else {
-    window.location.href = "./../post/index.html";
-  }
-}
-
-export { registerUser, loginUser, redirectToPage };
+export { registerUser, loginUser };

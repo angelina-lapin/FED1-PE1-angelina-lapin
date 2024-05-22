@@ -20,37 +20,29 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <script type="module" src="/js/application.mjs"></script>
-    <script type="module" src="/js/user-management.mjs"></script>
   </head>
   <body>
     <header>
       <div class="navbar">
-        <h1>Tech for Tomorrow</h1>
+        <a href="/index.html">Tech for tomorrow</a>
         <nav>
-          <a href="/account/register.html">Log In</a>
+          <a href="/account/login.html">Log In</a>
           <a href="/account/register.html">Sign In</a>
         </nav>
       </div>
     </header>
-    <h1>Tech for Tomorrow</h1>
-    <h2>Register</h2>
-    <form id="register-form">
-      <label for="register-username">Username:</label>
-      <input type="text" id="register-username" required />
-      <label for="register-email">Email:</label>
-      <input type="email" id="register-email" required />
-      <label for="register-password">Password:</label>
-      <input type="password" id="register-password" required />
-      <button type="submit">Register</button>
-    </form>
-
-    <h2>Login</h2>
-    <form id="login-form">
-      <label for="login-email">Email:</label>
-      <input type="email" id="login-email" required />
-      <label for="login-password">Password:</label>
-      <input type="password" id="login-password" required />
-      <button type="submit">Login</button>
-    </form>
+    <main>
+      <h1>Tech for Tomorrow</h1>
+      <h2>Register</h2>
+      <form id="register-form">
+        <label for="register-username">Username:</label>
+        <input type="text" id="register-username" required />
+        <label for="register-email">Email:</label>
+        <input type="email" id="register-email" required />
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" required />
+        <button type="submit">Register</button>
+      </form>
+    </main>
   </body>
 </html>
