@@ -23,7 +23,7 @@
   <body>
     <header>
       <div class="navbar">
-        <a href="/index.html">Tech for tomorrow</a>
+        <a href="/index.html" id="logo">Tech for tomorrow</a>
         <nav>
           <a href="/account/login.html">Log In</a>
           <a href="/account/register.html">Sign In</a>
@@ -33,25 +33,30 @@
     <main>
       <div class="carousel">
         <button class="prev"><i class="fas fa-arrow-left"></i></button>
-        <div class="carousel-inner">
-          <!-- Слайды будут добавлены динамически -->
-        </div>
+        <div class="carousel-inner"></div>
         <button class="next"><i class="fas fa-arrow-right"></i></button>
       </div>
 
-      <div class="hashtag-filter">
-        <label for="hashtag">Filter</label>
-        <select id="hashtag">
-          <option value="all">All</option>
-          <option value="#technology">Technology</option>
-          <option value="#innovation">Innovation</option>
-          <option value="#stability">Stability</option>
-        </select>
+      <div class="filter-sort-container">
+        <div class="hashtag-filter">
+          <label for="hashtag">Filter</label>
+          <select id="hashtag">
+            <option value="all">All</option>
+            <option value="#technology">Technology</option>
+            <option value="#innovation">Innovation</option>
+            <option value="#stability">Stability</option>
+          </select>
+        </div>
+        <div class="sort-filter">
+          <label for="sort">Sort by</label>
+          <select id="sort">
+            <option value="date">Date</option>
+            <option value="alphabet">Alphabetical</option>
+          </select>
+        </div>
       </div>
 
-      <div class="article-grid" id="blog-posts-container">
-        <!-- Blog posts will be dynamically loaded here -->
-      </div>
+      <div class="article-grid" id="blog-posts-container"></div>
     </main>
     <footer>
       <a class="terms_policy" href="#">Terms and Conditions</a>

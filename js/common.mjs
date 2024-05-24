@@ -7,7 +7,6 @@ export async function apiRequest(url, method, headers = {}, body = null) {
     headers: {
       "Content-Type": "application/json",
       ...headers,
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
   };
 
@@ -30,7 +29,7 @@ export async function apiRequest(url, method, headers = {}, body = null) {
 }
 
 export function showAlert(message, isSuccess = true) {
-  alert(message); // Простое текстовое уведомление
+  alert(message);
 }
 
 export function handleAuth(data) {
@@ -47,7 +46,6 @@ export function handleAuth(data) {
 function checkAuthError(error) {
   if (error.statusCode === 401) {
     showAlert("Session expired. Please log in again.", false);
-    // Редирект на страницу входа
     window.location.href = "/account/login.html";
   }
 }

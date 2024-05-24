@@ -24,7 +24,7 @@ function displayPost(post) {
   const tags = Array.isArray(post.tags) ? post.tags.join(", ") : "No tags";
 
   postContainer.innerHTML = `
-    <h2>${post.title}</h2>
+    <h1>${post.title}</h1>
     <p><strong>Tags:</strong> ${tags}</p>
     <img src="${post.media.url || "default.jpg"}" alt="${
     post.media.alt || "Image"

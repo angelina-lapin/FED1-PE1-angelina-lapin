@@ -1,19 +1,16 @@
 import { apiRequest, showAlert, API_BASE_URL, USERNAME } from "./common.mjs";
 
 // Функция для получения поста по ID
-async function getPostById(postId) {
+export async function getPostById(postId) {
   const authToken = localStorage.getItem("authToken");
-  if (!authToken) {
-    showAlert("No auth token found. Please login first.", false);
-    return null;
-  }
+  const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
   try {
     const response = await apiRequest(
       `${API_BASE_URL}/blog/posts/${USERNAME}/${postId}`,
       "GET",
-      { Authorization: `Bearer ${authToken}` }
+      headers
     );
-    return response.data; // Исправление для возврата данных поста
+    return response.data;
   } catch (error) {
     console.error("Failed to fetch blog post:", error);
     showAlert("Failed to fetch blog post: " + error.message, false);
@@ -22,7 +19,14 @@ async function getPostById(postId) {
 }
 
 // Функция для обновления поста
-async function updateBlogPost(postId, title, body, tags, mediaUrl, mediaAlt) {
+export async function updateBlogPost(
+  postId,
+  title,
+  body,
+  tags,
+  mediaUrl,
+  mediaAlt
+) {
   const authToken = localStorage.getItem("authToken");
   if (!authToken) {
     console.error("No auth token found. Please login first.");
@@ -34,15 +38,11 @@ async function updateBlogPost(postId, title, body, tags, mediaUrl, mediaAlt) {
     title,
     body,
     tags,
-    media: {
-      url: mediaUrl,
-      alt: mediaAlt,
-    },
+    media: { url: mediaUrl, alt: mediaAlt },
   };
-
   try {
     const url = `${API_BASE_URL}/blog/posts/${USERNAME}/${postId}`;
-    const data = await apiRequest(
+    await apiRequest(
       url,
       "PUT",
       { Authorization: `Bearer ${authToken}` },
@@ -57,17 +57,14 @@ async function updateBlogPost(postId, title, body, tags, mediaUrl, mediaAlt) {
 }
 
 // Функция для получения и отображения всех постов
-async function fetchBlogPosts() {
+export async function fetchBlogPosts() {
   const authToken = localStorage.getItem("authToken");
-  if (!authToken) {
-    showAlert("No auth token found. Please login first.", false);
-    return;
-  }
+  const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
   try {
     const response = await apiRequest(
       `${API_BASE_URL}/blog/posts/${USERNAME}`,
       "GET",
-      { Authorization: `Bearer ${authToken}` }
+      headers
     );
     if (response && response.data && Array.isArray(response.data)) {
       displayBlogPosts(response.data);
@@ -102,11 +99,11 @@ function displayCarouselPosts(posts) {
   });
 }
 
-// Функция для создания элемента поста
 function createPostElement(post) {
   const postElement = document.createElement("div");
   postElement.className = "card";
-  postElement.dataset.hashtags = post.tags.join(" ").toLowerCase(); // Добавление хэштегов в dataset
+  postElement.dataset.hashtags = post.tags.join(" ").toLowerCase();
+  postElement.dataset.date = post.date; // Assuming post.date contains the publication date
 
   const truncatedBody =
     post.body.length > 100 ? post.body.substring(0, 100) + "..." : post.body;
@@ -117,8 +114,21 @@ function createPostElement(post) {
       <h3>${post.title}</h3>
       <p>${truncatedBody}</p>
       <p><strong>Tags:</strong> ${post.tags.join(", ")}</p>
-      <a href="#" data-post-id="${post.id}">Read the post</a>
+      <a href="/post/index.html?id=${post.id}" data-post-id="${
+    post.id
+  }">Read the post</a>
     </div>`;
+
+  // Add click event listener to the entire card
+  postElement.addEventListener("click", function () {
+    window.location.href = `/post/index.html?id=${post.id}`;
+  });
+
+  // Stop propagation for the link
+  postElement.querySelector("a").addEventListener("click", function (event) {
+    event.stopPropagation();
+  });
+
   return postElement;
 }
 
@@ -138,7 +148,7 @@ function createCarouselSlide(post, isActive) {
 }
 
 // Функция для удаления поста
-async function deleteBlogPost(postId) {
+export async function deleteBlogPost(postId) {
   const authToken = localStorage.getItem("authToken");
   if (!authToken) {
     console.error("No auth token found. Please login first.");
@@ -156,11 +166,3 @@ async function deleteBlogPost(postId) {
     showAlert("Failed to delete blog post: " + error.message, false);
   }
 }
-
-export {
-  getPostById,
-  updateBlogPost,
-  fetchBlogPosts,
-  deleteBlogPost,
-  displayBlogPosts,
-};

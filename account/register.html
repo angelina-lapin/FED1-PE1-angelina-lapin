@@ -24,7 +24,7 @@
   <body>
     <header>
       <div class="navbar">
-        <a href="/index.html">Tech for tomorrow</a>
+        <a href="/index.html" id="logo">Tech for tomorrow</a>
         <nav>
           <a href="/account/login.html">Log In</a>
           <a href="/account/register.html">Sign In</a>
@@ -32,17 +32,18 @@
       </div>
     </header>
     <main>
-      <h1>Tech for Tomorrow</h1>
-      <h2>Register</h2>
-      <form id="register-form">
-        <label for="register-username">Username:</label>
-        <input type="text" id="register-username" required />
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" required />
-        <label for="register-password">Password:</label>
-        <input type="password" id="register-password" required />
-        <button type="submit">Register</button>
-      </form>
+      <div class="login-form">
+        <h1>Register</h1>
+        <form id="register-form">
+          <label for="register-username">Username:</label>
+          <input type="text" id="register-username" required />
+          <label for="register-email">Email:</label>
+          <input type="email" id="register-email" required />
+          <label for="register-password">Password:</label>
+          <input type="password" id="register-password" required />
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </main>
   </body>
 </html>

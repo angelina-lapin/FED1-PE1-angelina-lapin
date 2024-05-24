@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
   const loginForm = document.getElementById("login-form");
 
-  // Регистрация пользователя
   registerForm?.addEventListener("submit", function (event) {
     event.preventDefault();
     const username = document.getElementById("register-username").value;
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     registerUser(username, email, password);
   });
 
-  // Вход пользователя
   loginForm?.addEventListener("submit", function (event) {
     event.preventDefault();
     const email = document.getElementById("login-email").value;
@@ -22,9 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loginUser(email, password);
   });
 
-  // Загрузка блог-постов
   fetchBlogPosts().then(() => {
-    // Обработчик кликов на ссылки после загрузки постов
     document.querySelectorAll(".card a").forEach((link) => {
       link.addEventListener("click", function (event) {
         event.preventDefault();
@@ -38,8 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = `/post/index.html?id=${postId}`;
           }
         } else {
-          alert("You need to log in to edit posts.");
-          window.location.href = "/account/login.html";
+          window.location.href = `/post/index.html?id=${postId}`;
         }
       });
     });
@@ -47,10 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function checkAdminRights(token) {
-  // Предполагаем, что если токен есть, то это админ (для простоты)
-  // Реальная проверка может быть выполнена на сервере или с использованием данных из токена (JWT)
   return true;
 }
 
-// Загрузка блог-постов при загрузке страницы
 fetchBlogPosts();
