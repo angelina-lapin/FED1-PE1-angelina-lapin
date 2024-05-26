@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const post = await getPostById(postId);
   if (post) {
     displayPost(post);
-    addEventListeners(); // Добавляем обработчики событий после отображения поста
+    addEventListeners(postId);
   } else {
     alert("Post not found");
     window.location.href = "/";
@@ -47,7 +47,7 @@ function displayPost(post) {
   `;
 }
 
-function addEventListeners() {
+function addEventListeners(postId) {
   const postForm = document.getElementById("post-form");
   const deleteButton = document.getElementById("delete-button");
 
@@ -63,7 +63,6 @@ function addEventListeners() {
 
   postForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    const postId = new URLSearchParams(window.location.search).get("id");
     const title = document.getElementById("post-title-input").value;
     const content = document.getElementById("main-text").value;
     const tags = document.getElementById("tags").value.split(",");
@@ -75,7 +74,6 @@ function addEventListeners() {
   });
 
   deleteButton.addEventListener("click", async function () {
-    const postId = new URLSearchParams(window.location.search).get("id");
     if (confirm("Are you sure you want to delete this post?")) {
       await deleteBlogPost(postId);
       window.location.href = "/";

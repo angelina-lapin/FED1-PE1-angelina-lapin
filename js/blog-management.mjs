@@ -1,6 +1,7 @@
 import { apiRequest, showAlert, API_BASE_URL, USERNAME } from "./common.mjs";
 
-// Функция для получения поста по ID
+const POSTS_PER_PAGE = 12;
+
 export async function getPostById(postId) {
   const authToken = localStorage.getItem("authToken");
   const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
@@ -18,7 +19,6 @@ export async function getPostById(postId) {
   }
 }
 
-// Функция для обновления поста
 export async function updateBlogPost(
   postId,
   title,
@@ -56,8 +56,7 @@ export async function updateBlogPost(
   }
 }
 
-// Функция для получения и отображения всех постов
-export async function fetchBlogPosts() {
+export async function fetchBlogPosts(page = 1, sort = "date", filter = "all") {
   const authToken = localStorage.getItem("authToken");
   const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
   try {
@@ -67,8 +66,36 @@ export async function fetchBlogPosts() {
       headers
     );
     if (response && response.data && Array.isArray(response.data)) {
-      displayBlogPosts(response.data);
-      displayCarouselPosts(response.data.slice(-3));
+      let posts = response.data;
+
+      // Filter posts by hashtag
+      if (filter !== "all") {
+        const normalizedFilter = filter.replace("#", "").toLowerCase();
+        posts = posts.filter((post) =>
+          post.tags.map((tag) => tag.toLowerCase()).includes(normalizedFilter)
+        );
+      }
+
+      // Sort posts
+      posts.sort((a, b) => {
+        if (sort === "alphabet") {
+          return a.title.localeCompare(b.title);
+        } else if (sort === "date") {
+          return new Date(b.date) - new Date(a.date);
+        }
+        return 0;
+      });
+
+      const totalPosts = posts.length;
+      const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+      const paginatedPosts = posts.slice(
+        (page - 1) * POSTS_PER_PAGE,
+        page * POSTS_PER_PAGE
+      );
+
+      displayBlogPosts(paginatedPosts);
+      displayCarouselPosts(posts.slice(-3));
+      createPaginationControls(totalPages, page);
     } else {
       console.error("Unexpected data format:", response);
     }
@@ -77,7 +104,6 @@ export async function fetchBlogPosts() {
   }
 }
 
-// Функция для отображения всех постов
 function displayBlogPosts(posts) {
   const blogContainer = document.getElementById("blog-posts-container");
   if (!blogContainer) return;
@@ -88,7 +114,6 @@ function displayBlogPosts(posts) {
   });
 }
 
-// Функция для отображения постов в карусели
 function displayCarouselPosts(posts) {
   const carouselInner = document.querySelector(".carousel-inner");
   if (!carouselInner) return;
@@ -103,7 +128,7 @@ function createPostElement(post) {
   const postElement = document.createElement("div");
   postElement.className = "card";
   postElement.dataset.hashtags = post.tags.join(" ").toLowerCase();
-  postElement.dataset.date = post.date; // Assuming post.date contains the publication date
+  postElement.dataset.date = post.date;
 
   const truncatedBody =
     post.body.length > 100 ? post.body.substring(0, 100) + "..." : post.body;
@@ -119,12 +144,10 @@ function createPostElement(post) {
   }">Read the post</a>
     </div>`;
 
-  // Add click event listener to the entire card
   postElement.addEventListener("click", function () {
     window.location.href = `/post/index.html?id=${post.id}`;
   });
 
-  // Stop propagation for the link
   postElement.querySelector("a").addEventListener("click", function (event) {
     event.stopPropagation();
   });
@@ -132,7 +155,6 @@ function createPostElement(post) {
   return postElement;
 }
 
-// Функция для создания слайда карусели
 function createCarouselSlide(post, isActive) {
   const slide = document.createElement("div");
   slide.className = `slide ${isActive ? "active" : ""}`;
@@ -147,7 +169,6 @@ function createCarouselSlide(post, isActive) {
   return slide;
 }
 
-// Функция для удаления поста
 export async function deleteBlogPost(postId) {
   const authToken = localStorage.getItem("authToken");
   if (!authToken) {
@@ -158,11 +179,27 @@ export async function deleteBlogPost(postId) {
 
   try {
     const url = `${API_BASE_URL}/blog/posts/${USERNAME}/${postId}`;
-    await apiRequest(url, "DELETE", { Authorization: `Bearer ${authToken}` });
+    console.log("Deleting post with URL:", url);
+    await apiRequest(url, "DELETE"); // Нет необходимости в передаче заголовков здесь, они уже в apiRequest
     showAlert("Blog post deleted successfully!", true);
     fetchBlogPosts();
   } catch (error) {
     console.error("Failed to delete blog post:", error);
     showAlert("Failed to delete blog post: " + error.message, false);
+  }
+}
+
+function createPaginationControls(totalPages, currentPage) {
+  const paginationContainer = document.getElementById("pagination-container");
+  if (!paginationContainer) return;
+
+  paginationContainer.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i;
+    pageButton.className = i === currentPage ? "active" : "";
+    pageButton.addEventListener("click", () => fetchBlogPosts(i));
+    paginationContainer.appendChild(pageButton);
   }
 }

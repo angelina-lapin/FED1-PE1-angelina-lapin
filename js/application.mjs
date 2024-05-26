@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   fetchBlogPosts().then(() => {
-    document.querySelectorAll(".card a").forEach((link) => {
-      link.addEventListener("click", function (event) {
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", function (event) {
         event.preventDefault();
         const authToken = localStorage.getItem("authToken");
-        const postId = this.getAttribute("data-post-id");
+        const postId = this.querySelector("a").getAttribute("data-post-id");
         if (authToken) {
           const isAdmin = checkAdminRights(authToken);
           if (isAdmin) {
@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = `/post/index.html?id=${postId}`;
           }
         } else {
-          window.location.href = `/post/index.html?id=${postId}`;
+          alert("You need to log in to edit posts.");
+          window.location.href = "/account/login.html";
         }
       });
     });
@@ -42,7 +43,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function checkAdminRights(token) {
-  return true;
+  const adminEmail = "anglapin01435@stud.noroff.no";
+  const email = parseJwt(token).email;
+  return email === adminEmail;
 }
 
-fetchBlogPosts();
+function parseJwt(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
+}

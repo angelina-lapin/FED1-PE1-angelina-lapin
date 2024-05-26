@@ -44,12 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
           .querySelector("h3")
           .innerText.localeCompare(b.querySelector("h3").innerText);
       } else if (sortOrder === "date") {
-        return new Date(b.dataset.date) - new Date(a.dataset.date); // Assuming date is stored in data-date attribute
+        return new Date(b.dataset.date) - new Date(a.dataset.date);
       }
       return 0;
     });
 
-    // Append sorted cards to the container
     cards.forEach((card) => blogContainer.appendChild(card));
   }
 });

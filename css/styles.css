@@ -207,6 +207,32 @@ button:hover {
   -webkit-box-orient: vertical;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #677558;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pagination button.active {
+  background-color: yellow;
+  color: black;
+}
+
+.pagination button:hover {
+  background-color: #f4f4f4;
+  color: black;
+}
+
 footer {
   display: flex;
   justify-content: center;
@@ -259,7 +285,7 @@ input {
 }
 
 button {
-  border-radius: 40px;
+  border-radius: 10px;
   opacity: 0.25;
   background: #677558;
   color: #fff;

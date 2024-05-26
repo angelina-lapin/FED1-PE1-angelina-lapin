@@ -7,6 +7,7 @@ export async function apiRequest(url, method, headers = {}, body = null) {
     headers: {
       "Content-Type": "application/json",
       ...headers,
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
   };
 
@@ -14,10 +15,19 @@ export async function apiRequest(url, method, headers = {}, body = null) {
     options.body = JSON.stringify(body);
   }
 
+  console.log("Making API request to:", url);
+  console.log("Request options:", options);
+
   try {
     const response = await fetch(url, options);
+
+    if (response.status === 204) {
+      return;
+    }
+
     const data = await response.json();
     if (!response.ok) {
+      console.error("API request failed:", data);
       throw data;
     }
     return data;
