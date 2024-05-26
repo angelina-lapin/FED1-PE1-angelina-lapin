@@ -26,16 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         const authToken = localStorage.getItem("authToken");
         const postId = this.querySelector("a").getAttribute("data-post-id");
-        if (authToken) {
-          const isAdmin = checkAdminRights(authToken);
-          if (isAdmin) {
-            window.location.href = `/post/edit.html?id=${postId}`;
-          } else {
-            window.location.href = `/post/index.html?id=${postId}`;
-          }
+        if (authToken && checkAdminRights(authToken)) {
+          window.location.href = `/post/edit.html?id=${postId}`;
         } else {
-          alert("You need to log in to edit posts.");
-          window.location.href = "/account/login.html";
+          window.location.href = `/post/index.html?id=${postId}`;
         }
       });
     });

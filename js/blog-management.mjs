@@ -139,17 +139,30 @@ function createPostElement(post) {
       <h3>${post.title}</h3>
       <p>${truncatedBody}</p>
       <p><strong>Tags:</strong> ${post.tags.join(", ")}</p>
-      <a href="/post/index.html?id=${post.id}" data-post-id="${
-    post.id
-  }">Read the post</a>
+      <a href="#" data-post-id="${post.id}">Read the post</a>
     </div>`;
 
-  postElement.addEventListener("click", function () {
-    window.location.href = `/post/index.html?id=${post.id}`;
+  postElement.addEventListener("click", function (event) {
+    event.preventDefault();
+    const authToken = localStorage.getItem("authToken");
+    const postId = post.id;
+    if (authToken && checkAdminRights(authToken)) {
+      window.location.href = `/post/edit.html?id=${postId}`;
+    } else {
+      window.location.href = `/post/index.html?id=${postId}`;
+    }
   });
 
   postElement.querySelector("a").addEventListener("click", function (event) {
-    event.stopPropagation();
+    event.preventDefault(); // Prevent default behavior for link
+    event.stopPropagation(); // Stop propagation to prevent triggering card click
+    const authToken = localStorage.getItem("authToken");
+    const postId = this.getAttribute("data-post-id");
+    if (authToken && checkAdminRights(authToken)) {
+      window.location.href = `/post/edit.html?id=${postId}`;
+    } else {
+      window.location.href = `/post/index.html?id=${postId}`;
+    }
   });
 
   return postElement;
@@ -180,8 +193,7 @@ export async function deleteBlogPost(postId) {
   try {
     const url = `${API_BASE_URL}/blog/posts/${USERNAME}/${postId}`;
     console.log("Deleting post with URL:", url);
-    await apiRequest(url, "DELETE"); // Нет необходимости в передаче заголовков здесь, они уже в apiRequest
-    showAlert("Blog post deleted successfully!", true);
+    await apiRequest(url, "DELETE", { Authorization: `Bearer ${authToken}` });
     fetchBlogPosts();
   } catch (error) {
     console.error("Failed to delete blog post:", error);
@@ -202,4 +214,24 @@ function createPaginationControls(totalPages, currentPage) {
     pageButton.addEventListener("click", () => fetchBlogPosts(i));
     paginationContainer.appendChild(pageButton);
   }
+}
+
+function checkAdminRights(token) {
+  const adminEmail = "anglapin01435@stud.noroff.no";
+  const email = parseJwt(token).email;
+  return email === adminEmail;
+}
+
+function parseJwt(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
 }
