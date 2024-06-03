@@ -1,6 +1,6 @@
 # Tech For Tomorrow - blog web page 
 
-![image]("https://angelina.lapin.io/githubPreviews/techft.png")
+![image](https://angelina.lapin.io/githubPreviews/techft.png)
 
 Welcome to the project of developing a responsive blog webpage "Tech for Tomorrow". This project demonstrates the skills learned over the FED1 program, including project planning, UI design, web application development using HTML, CSS, and JavaScript, and API interaction.
 
